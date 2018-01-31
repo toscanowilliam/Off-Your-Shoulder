@@ -1,0 +1,15 @@
+ <!-- Takes the navigation stuff from the base html -->
+
+{% block content %}
+<h1>Write a Blog!</h1>
+<form action="/new_entry" method="post">
+
+        <label for="title_field">Add a title!</label>
+        <input id="title_field" name="title" type="text" value="{{ new_entry_title }}"> <!-- takes new_entry_title from main and sets it as the value -->
+
+        <label for="body_field">Write away!</label>
+        <textarea rows="4" cols="50" id="body_field" name="body" value="{{ new_entry_body }}"></textarea>
+                                                        <!--   -->
+    <input id="submit_button" type="submit" value="Save">
+</form>
+{% endblock %}
