@@ -12,8 +12,8 @@ app.secret_key = 'y337kGcys&zP3B'
 class Entry(db.Model): #NEW ENTRY FOR DATABASE
 
     id = db.Column(db.Integer, primary_key=True) #Creates ID for each entry     
-    title = db.Column(db.String(180)) #Adds vairable "title" to entry
-    body = db.Column(db.String(1000)) #adds date
+    title = db.Column(db.String(180)) #Adds vairable "title" to Entry
+    body = db.Column(db.String(1000)) #adds variable "body" to Entry
     
 
     def __init__(self, title, body ):
@@ -33,8 +33,8 @@ class Entry(db.Model): #NEW ENTRY FOR DATABASE
 def new_entry():
     
     if request.method == 'POST': #Once the user hits submit on new entry....
-        new_entry_title = request.form['title'] #gets the title and body variables from HTML
-        new_entry_body = request.form['body']
+        new_entry_title = request.form['title'] #gets the title variables from HTML
+        new_entry_body = request.form['body'] #gets the body variable from HTML
         new_entry = Entry(new_entry_title, new_entry_body) #calls Entry class and adds to database
 
         if new_entry.is_valid(): 
@@ -44,7 +44,7 @@ def new_entry():
             
             url = "/blog?id=" + str(new_entry.id) #creates a link to just the new ID that was added
             return redirect(url)
-        else:
+        else: #else if the entry isn't Valid
             flash("Please check your entry for errors. Both a title and a body are required.")
             return render_template('new_entry_form.html',
                 title="Create new blog entry",
