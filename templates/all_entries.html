@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>All Blog Entries</h1>
+    <ul>
+        {% for entry in all_entries %} <!-- iterates through entrys from the all_entries variable in MAIN.py  -->
+            <li>
+                <h2>        
+                    
+                    <a href="/blog?id={{ entry.id }}">{{ entry.title }}</a>
+                    
+                </h2>
+                <p>{{ entry.body }}</p>
+                <p> contributor: <a href="/blog?user={{ entry.owner.id }}">{{ entry.owner.email }}</a></p>
+                <p>{{ entry.created }}</p> <!-- Creates a link for each entry ID  -->
+                
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

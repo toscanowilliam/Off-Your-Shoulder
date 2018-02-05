@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{{title}}</title>
+    </head>
+<body>
+    <main>
+       
+        <div style='float: right'>
+          {% if 'email' in session %}
+            {{ session['email'] }}
+            <form action="/logout" method="post" id='logout'>
+              <input type="submit" value="Log Out" />
+            </form>
+            
+            <nav> <!-- navigation tags  -->
+            <a href='/'>Home</a>
+            <a href='/blog'>List all entries</a>
+            <a href='/new_entry'>Create new entry</a>
+            </nav>
+          {% else %}
+            <a href="login">login</a> | <a href="register">register</a> | <a href='/blog'>All Posts</a>
+          {% endif %}
+        </div>
+
+        <div class="container">
+            <!-- No message categories  -->
+            {% with messages = get_flashed_messages() %}
+                {% for message in messages %}
+                    <div class="flash_message">{{message|safe}}</div>
+                {% endfor %}
+            {% endwith %}
+
+            {% block content %}
+            {% endblock %}
+
+        </div>
+    </main>
+
+</body>
+</html>
