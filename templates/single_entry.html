@@ -5,4 +5,8 @@
     <p>{{ entry.body }}</p>
     <p>{{ entry.created }}</p> 
     <p> contributor: <a href="/blog?user={{ entry.owner.id }}">{{ entry.owner.email }}</a></p>
-{% endblock %}
+
+<!-- comments -->
+    <textarea rows="4" cols="50" id="comment_field" name="body" value="{{ new_entry_body }}"></textarea>
+    <input id="submit_button" type="submit" value="Create Comment">
+    {% endblock %}
