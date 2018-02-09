@@ -13,10 +13,12 @@ app.secret_key = 'y337kGcys&zP3B'
 class Entry(db.Model): #NEW ENTRY FOR DATABASE
 
     id = db.Column(db.Integer, primary_key=True) #Creates ID for each entry     
-    title = db.Column(db.String(180)) #Adds vairable "title" to entry
+    title = db.Column(db.String(180)) #Adds variable "title" to entry
     body = db.Column(db.String(1000)) #adds date
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    #comment_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
+    comments = db.relationship('comment', backref='commenter')
 
     def __init__(self, title, body, owner):
         self.title = title #stores variables in SELF for each entry
@@ -48,6 +50,9 @@ class Comment(db.Model):
     body = db.Column(db.String(1000)) #adds date
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    #entry = db.relationship('Entry', backref='owner')
+    entry_id = db.Column(db.Integer,db.ForeignKey('entry.id'),nullable=False)
+    
 
     def __init__(self, body, owner):
         
