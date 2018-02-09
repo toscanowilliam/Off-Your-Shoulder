@@ -18,7 +18,7 @@ class Entry(db.Model): #NEW ENTRY FOR DATABASE
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     #comment_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
-    comments = db.relationship('comment', backref='commenter')
+    comment_id = db.relationship('Comment', backref='comment')
 
     def __init__(self, title, body, owner):
         self.title = title #stores variables in SELF for each entry
