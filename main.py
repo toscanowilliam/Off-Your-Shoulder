@@ -13,10 +13,12 @@ app.secret_key = 'y337kGcys&zP3B'
 class Entry(db.Model): #NEW ENTRY FOR DATABASE
 
     id = db.Column(db.Integer, primary_key=True) #Creates ID for each entry     
-    title = db.Column(db.String(180)) #Adds vairable "title" to entry
+    title = db.Column(db.String(180)) #Adds variable "title" to entry
     body = db.Column(db.String(1000)) #adds date
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    #comment_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
+    comment_id = db.relationship('Comment', backref='comment')
 
     def __init__(self, title, body, owner):
         self.title = title #stores variables in SELF for each entry
@@ -42,7 +44,28 @@ class User(db.Model):
         self.email = email
         self.password = password
 
+class Comment(db.Model): 
 
+    id = db.Column(db.Integer, primary_key=True) #Creates ID for each entry     
+    body = db.Column(db.String(1000)) #adds date
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    #entry = db.relationship('Entry', backref='owner')
+    entry_id = db.Column(db.Integer,db.ForeignKey('entry.id'),nullable=False)
+    
+
+    def __init__(self, body, owner):
+        
+        self.body = body
+        self.owner = owner
+
+    def is_valid(self):
+       
+        if self.body:  #Makes sure each SELF is valid
+            return True
+        else:
+            return False    
+        
 @app.route('/')
 def index():
 
@@ -69,6 +92,7 @@ def display_entries():
 
 @app.route('/new_entry', methods=['GET', 'POST'])
 def new_entry():
+    
     
     owner = User.query.filter_by(email=session['email']).first()
     if request.method == 'POST': #Once the user hits submit on new entry....
@@ -156,11 +180,27 @@ def register():
     else:
         return render_template('register.html')    
 
+
+@app.route("/comment", methods=['POST'])
+def comment():
+    owner = User.query.filter_by(email=session['email']).first()
+    if request.method == 'POST':  # Once the user hits submit on new entry....
+        new_entry_body = request.form['body']
+        new_entry = Comment(new_entry_body, owner)
+
+    if new_entry.is_valid():
+        db.session.add(new_entry)  # if the SELF is valid, it adds to database
+        db.session.commit()
+        # creates a link to just the new ID that was added
+        url = "/entry?id=" + str(new_entry.id)
+        return redirect(url)
+
 @app.before_request
 def require_login():
     endpoints_without_login = ['login', 'register','logout', 'display_blog_entries']
     if not ('email' in session or request.endpoint in endpoints_without_login):
             return redirect("/login")
+
 
 if __name__ == '__main__':
     app.run()
