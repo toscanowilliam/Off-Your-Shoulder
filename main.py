@@ -93,6 +93,7 @@ def display_entries():
 @app.route('/new_entry', methods=['GET', 'POST'])
 def new_entry():
     
+    
     owner = User.query.filter_by(email=session['email']).first()
     if request.method == 'POST': #Once the user hits submit on new entry....
         new_entry_title = request.form['title'] #gets the title and body variables from HTML
