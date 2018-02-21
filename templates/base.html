@@ -1,41 +1,34 @@
 <!doctype html>
-<html>
-    <head>
-        <title>{{title}}</title>
-    </head>
-<body>
-    <main>
-       
-        <div style='float: right'>
-          {% if 'email' in session %}
-            {{ session['email'] }}
-            <form action="/logout" method="post" id='logout'>
-              <input type="submit" value="Log Out" />
-            </form>
-            
-            <nav> <!-- navigation tags  -->
-            <a href='/'>Home</a>
-            <a href='/blog'>List all entries</a>
-            <a href='/new_entry'>Create new entry</a>
-            </nav>
-          {% else %}
-            <a href="login">login</a> | <a href="register">register</a> | <a href='/blog'>All Posts</a>
-          {% endif %}
-        </div>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <div class="container">
-            <!-- No message categories  -->
-            {% with messages = get_flashed_messages() %}
-                {% for message in messages %}
-                    <div class="flash_message">{{message|safe}}</div>
-                {% endfor %}
-            {% endwith %}
+  {% include 'snippets/css.html' %}
 
-            {% block content %}
-            {% endblock %}
+  {% block base_head %}{% endblock %}
 
-        </div>
-    </main>
+  <title>{{title}}</title>
+</head>
+  <body>
 
-</body>
+   {% include 'snippets/nav.html' %}
+
+    <div class="container">
+      <!-- No message categories  -->
+      {% with messages = get_flashed_messages() %}
+      {% for message in messages %}
+      <div class="flash_message">{{message|safe}}</div>
+      {% endfor %}
+      {% endwith %}
+    </div>
+
+    {% block content %}{% endblock %}
+
+    {% include 'snippets/js.html' %}
+  </body>
+
 </html>
+
+
