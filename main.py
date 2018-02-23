@@ -84,8 +84,8 @@ def display_entries():
     entry_id = request.args.get('id')
     if (entry_id): #if the user clicks on a blog link, it takes them to that entry
         entry = Entry.query.get(entry_id) #this gets the specific ID for what the user clicked on
-        comments = Entry.query.get(comment_id)
-        return render_template('single_entry.html', title="Blog Entry", entry=entry)
+        comments = Comment.query.filter_by(post_id=entry_id)
+        return render_template('single_entry.html', title="Blog Entry", entry=entry, comments=comments)
 
     if (user_id):
         user_id = int(user_id)
