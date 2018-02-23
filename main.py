@@ -6,7 +6,7 @@ import cgi
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://off-your-shoulde:baseball1@localhost:3306/off-your-shoulder'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://off-your-shoulde:baseball1@localhost:8889/off-your-shoulder'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 app.secret_key = 'y337kGcys&zP3B'
@@ -52,13 +52,12 @@ class Comment(db.Model):
     body = db.Column(db.String(1000))  # adds date
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-
-    def __init__(self, body, owner):
-
-    #entry = db.relationship('Entry', backref='owner')
     post_id = db.Column(db.Integer,db.ForeignKey('entry.id'))
     
 
+
+    #entry = db.relationship('Entry', backref='owner')
+        
     def __init__(self, body, owner, post):
         
         self.body = body
@@ -85,11 +84,7 @@ def display_entries():
     entry_id = request.args.get('id')
     if (entry_id): #if the user clicks on a blog link, it takes them to that entry
         entry = Entry.query.get(entry_id) #this gets the specific ID for what the user clicked on
- 
-        print("*" * 50) 
-        print(entry.id)
-        print("*" * 50)
-       
+        comments = Entry.query.get(comment_id)
         return render_template('single_entry.html', title="Blog Entry", entry=entry)
 
     if (user_id):
@@ -109,10 +104,11 @@ def new_entry():
         new_entry_title = request.form['title']  # gets the title and body variables from HTML
         new_entry_body = request.form['body']
         new_entry = Entry(new_entry_title, new_entry_body, owner)  # calls Entry class and adds to database
-
+        
         if new_entry.is_valid():
             db.session.add(new_entry)  # if the SELF is valid, it adds to database
             db.session.commit()
+            url = "/blog?id=" + str(new_entry.id)
             return redirect(url)
         else:
             flash("Please check your entry for errors. Both a title and a body are required.")
@@ -159,18 +155,18 @@ def login():
             return redirect('/')
 
 
-# @app.route("/logout", methods=['POST'])
-# def logout():
-#     owner = User.query.filter_by(email=session['email']).first()
-#     if request.method == 'POST':
-#         session['email'] = owner.email
-#         del session['email']
-#         return redirect("/home")
-@app.route("/logout")
+@app.route("/logout", methods=['POST'])
 def logout():
+    owner = User.query.filter_by(email=session['email']).first()
     if request.method == 'POST':
+        session['email'] = owner.email
         del session['email']
         return redirect("/home")
+# @app.route("/logout")
+# def logout():
+#     if request.method == 'POST':
+#         del session['email']
+#         return redirect("/home")
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -199,7 +195,8 @@ def register():
 
 @app.route("/comment", methods=['POST'])
 def comment():
-    entry = request.form['entry']
+    entry_id = request.form["entry"]
+    entry = Entry.query.filter_by(id=entry_id).first()
     owner = User.query.filter_by(email=session['email']).first()
     print(owner.id)
     if request.method == 'POST':  # Once the user hits submit on new entry....
@@ -210,7 +207,7 @@ def comment():
         db.session.add(new_entry)  # if the SELF is valid, it adds to database
         db.session.commit()
         # creates a link to just the new ID that was added
-        url = "/blog?id=" + str(entry)
+        url = "/blog?id=" + str(entry_id)
         return redirect(url)
 
 
