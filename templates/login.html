@@ -1,23 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Log in to get stuff off your shoulder!</h1>
-<p>If you don't have a temporary account, you may <a href="/register">register</a> for one</p>
-<form action="/login" method="post">
-    <table>
-        <tr>
-            <td><label for="email">Email</label></td>
-            <td>
-                <input name="email" type="email" value="{{ email }}">
-            </td>
-        </tr>
-        <tr>
-            <td><label for="password">Password</label></td>
-            <td>
-                <input name="password" type="password">
-            </td>
-        </tr>
-    </table>
-    <input type="submit" value="Login">
-</form>
+  <div id="login-form" class="container py-4">
+  <h1 class="py-5 text-center">Log in to get stuff off your shoulder!</h1>
+  <p class="text-center pb-5">If you don't have a temporary account, you may <a href="/register">register</a> for one</p>
+    <div class="row">
+      <div class="col-12 col-md-6 offset-md-3">
+        <form action="/login" method="post">
+          <div class="form-group">
+            <input type="email" class="form-control" value="{{ email }}" aria-describedby="emailHelp"
+                   placeholder="Enter email" name="email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" placeholder="Password" name="password">
+          </div>
+          <div class="form-check text-center pb-4">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Keep me signed in</label>
+          </div>
+          <div class="form-check text-center">
+              <button type="submit" class="btn btn-outline-success px-4">Login</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

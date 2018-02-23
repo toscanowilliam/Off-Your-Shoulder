@@ -1,0 +1,6 @@
+{% if 'email' in session %}
+  {{ session['email'] }}
+    {% include 'snippets/nav1.html' %}
+  {% else %}
+    {% include 'snippets/nav2.html' %}
+{% endif %}

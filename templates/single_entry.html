@@ -1,16 +1,39 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{entry.id}}</h1>
-    <h1>{{ entry.title }}</h1>
-    <p>{{ entry.body }}</p>
-    <p>{{ entry.created }}</p> 
-    <p> contributor: <a href="/blog?user={{ entry.owner.id }}">{{ entry.owner.email }}</a></p>
+<div class="container">
+    <div class="post">
+        <div class="row">
+            <p class="display-3">{{ entry.title }}</p>
+            <i><p class="lead">By <a href="/blog?user={{ entry.owner.id }}">{{ entry.owner.email }}</a> on {{ entry.created }}</p></i>
+        </div>
+        <hr>
+        <div class="row">
+            <p>{{ entry.body }}</p>
+        </div>
+    </div>
+    <!--comments-->
+    <div id="comments">
+        <div class="row">
+            <form action="/comment" method="post">
+            <div class="form-group">
+              <textarea class="form-control" rows="4" cols="50" id="comment_field" name="body" value="{{ new_entry_body }}" placeholder="Your comments..."></textarea>
+            </div>
+            <div class="form-check text-center">
+              <button type="submit" id="submit_button" class="btn btn-outline-success px-4 my-3">Create Comment</button>
+              <input type="hidden" name="entry" value="{{entry.id}}">
+            </div>
+            </form>
+        </div>     
+        <div class="row">
+            {% for comment in comments %}
+            <p class="display-3">{{ comment.body }}</p>
+            {% endfor %}
+        </div>
+        <hr>
+    </div>
+    </div>
+</div>
 
-<!-- comments -->
-<form action="/comment" method="post">
-    <textarea rows="4" cols="50" id="comment_field" name="body" value="{{ new_comment_body }}"></textarea>
-    <input id="submit_button" type="submit" value="Create Comment">
-    <input type="hidden" name="entry" value="{{entry.id}}">
-</form>
+
     {% endblock %}
