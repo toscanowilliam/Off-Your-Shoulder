@@ -3,10 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
 import datetime
 import cgi
+import os
+
+
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://off-your-shoulde:baseball1@localhost:8889/off-your-shoulder'
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://tpjucuewwginiv:fbd77d8e7c838ca53905a68a72d2166955a3e9e52ab89321f2c78bc590c88d90@ec2-184-73-196-65.compute-1.amazonaws.com:5432/d94u7v15cvfoef"
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 app.secret_key = 'y337kGcys&zP3B'

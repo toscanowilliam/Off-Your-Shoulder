@@ -1,0 +1,5 @@
+name: flaskenv
+channels:
+  - defaults
+prefix: C:\Users\William\Anaconda3\envs\flaskenv
+
