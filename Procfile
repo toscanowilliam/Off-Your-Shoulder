@@ -1,2 +1,2 @@
-web: gunicorn app:app --log-file=-
+web: python main.py
 heroku ps:scale web=1
