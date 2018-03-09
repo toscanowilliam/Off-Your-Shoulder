@@ -5,8 +5,8 @@ import datetime
 import cgi
 
 app = Flask(__name__)
-app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://off-your-shoulde:baseball1@localhost:8889/off-your-shoulder'
+app.config['DEBUG'] = True                                #user            password            port   Database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://off-your-shoulder:baseball1@localhost:3306/offyourshoulder'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 app.secret_key = 'y337kGcys&zP3B'
@@ -196,7 +196,7 @@ def register():
 @app.route("/comment", methods=['POST'])
 def comment():
     entry_id = request.form["entry"]
-    entry = Entry.query.filter_by(id=entry_id).first()
+    entry = Entry.query.filter_by(id=entry_id).first() #similar to findByID in JAVA
     owner = User.query.filter_by(email=session['email']).first()
     print(owner.id)
     if request.method == 'POST':  # Once the user hits submit on new entry....
