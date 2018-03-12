@@ -9,7 +9,7 @@ import os
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://yilzvjzjvehtsg:a6c0f6fe5b52407952b51a577b80598683c8996397bd36a0cc469f171493f0df@ec2-184-73-250-50.compute-1.amazonaws.com:5432/dekocnv284ht2a"
+app.config['SQLALCHEMY_DATABASE_URI'] = "po    postgres://ixrcltwqldsymi:cfd9ffdfde2c0b07a794c6bf3abcf8c2c4f2fc7a496cf1d14bb86439a1a66590@ec2-184-73-250-50.compute-1.amazonaws.com:5432/dfnvammku29qit"
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 app.secret_key = 'y337kGcys&zP3B'
