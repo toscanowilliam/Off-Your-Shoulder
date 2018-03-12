@@ -1,2 +1,1 @@
-web: gunicorn app:app
-release: python main.py db upgrade
+web: gunicorn app:app --log-file=-
