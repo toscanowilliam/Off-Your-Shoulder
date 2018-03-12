@@ -1,2 +1,2 @@
-web: python main.py
-heroku ps:scale web=1
+web: gunicorn app:app
+release: python main.py db upgrade
