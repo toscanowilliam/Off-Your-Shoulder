@@ -159,13 +159,13 @@ def login():
             return redirect('/')
 
 
-@app.route("/logout", methods=['GET'])
+@app.route("/logout", methods=['POST'])
 def logout():
     owner = User.query.filter_by(email=session['email']).first()
-    if request.method == 'GET':
+    if request.method == 'POST':
         session['email'] = owner.email
         del session['email']
-        return redirect("/home")
+        return redirect("/")
 # @app.route("/logout")
 # def logout():
 #     if request.method == 'POST':
