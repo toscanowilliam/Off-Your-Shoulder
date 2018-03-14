@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect, render_template, session, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
+
 from app import app, bcrypt, db
 import datetime
 import cgi
@@ -158,18 +159,18 @@ def login():
             return redirect('/')
 
 
-@app.route("/logout", methods=['POST'])
-def logout():
-    owner = User.query.filter_by(email=session['email']).first()
-    if request.method == 'POST':
-        session['email'] = owner.email
-        del session['email']
-        return redirect("/home")
-# @app.route("/logout")
+# @app.route("/logout", methods=['POST'])
 # def logout():
+#     owner = User.query.filter_by(email=session['email']).first()
 #     if request.method == 'POST':
+#         session['email'] = owner.email
 #         del session['email']
 #         return redirect("/home")
+@app.route("/logout")
+def logout():
+    if request.method == 'POST':
+        del session['email']
+        return redirect("/home")
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
