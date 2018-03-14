@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect, render_template, session, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
+from app import app, bcrypt, db
 import datetime
 import cgi
 import os

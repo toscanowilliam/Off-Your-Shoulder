@@ -18,8 +18,7 @@ logger = logging.getLogger('alembic.env')
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 from flask import current_app
-
-current_app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://nktoapuiggtibv:3ea780e068a1ff19cb6b3cd6fb12a96241795c7b4dd1b0dc1e343dce75216158@ec2-107-22-168-211.compute-1.amazonaws.com:5432/d89b7hl1jfjjv9"
+current_app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://ixrcltwqldsymi:cfd9ffdfde2c0b07a794c6bf3abcf8c2c4f2fc7a496cf1d14bb86439a1a66590@ec2-184-73-250-50.compute-1.amazonaws.com:5432/dfnvammku29qit" 
 
 config.set_main_option('sqlalchemy.url',
                        current_app.config.get('SQLALCHEMY_DATABASE_URI'))
