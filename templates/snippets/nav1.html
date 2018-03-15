@@ -15,8 +15,10 @@
         <a class="nav-link" href="/new_entry">New entry</a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('logout')}}">Logout</a>
-        </li>
+        <form action="/logout" method="post" id="logout">
+          <input class="nav-link" type="submit" value="Log out">
+        </form>
+      </li>
     </ul>
   </div>
 </nav>

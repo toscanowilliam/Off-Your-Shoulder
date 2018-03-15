@@ -16,7 +16,7 @@ class Entry(db.Model):  # NEW ENTRY FOR DATABASE
 
     id = db.Column(db.Integer, primary_key=True) #Creates ID for each entry     
     title = db.Column(db.String(180)) #Adds variable "title" to entry
-    body = db.Column(db.String(1000)) #adds date
+    body = db.Column(db.String(9000)) #adds date
     owner_id = db.Column(db.Integer, ForeignKey('user.id'))
     created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     #comment_id = db.Column(db.Integer, db.ForeignKey('comment.id'))
@@ -147,7 +147,6 @@ def login():
         if users and users.password == password:
             session['email'] = users.email
             flash("Logged in")
-            print("*" * 50)
             return redirect(url_for(".index"))
 
         else:
@@ -161,7 +160,7 @@ def logout():
     if request.method == 'POST':
         session['email'] = owner.email
         del session['email']
-        return redirect("/home")
+        return redirect("/")
 # @app.route("/logout")
 # def logout():
 #     if request.method == 'POST':
@@ -213,7 +212,7 @@ def comment():
 
 @app.before_request
 def require_login():
-    endpoints_without_login = ['login', 'register', 'logout', 'display_blog_entries']
+    endpoints_without_login = ['login', 'register', 'logout']
     if not ('email' in session or request.endpoint in endpoints_without_login):
         return redirect("/login")
 

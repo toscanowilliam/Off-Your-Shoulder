@@ -25,9 +25,13 @@
             </div>
             </form>
         </div>     
-        <div class="row">
+        <div class="container">
             {% for comment in comments %}
-            <p class="display-3">{{ comment.body }}</p>
+            <li style="width: 700px; word-wrap:break-word;">
+                <ul>{{ comment.body }}</ul>
+                <ul>contributor: <a href="/blog?user={{ comment.owner.id }}">{{ comment.owner.email }}</a></ul>
+                <ul>{{ comment.created }}</ul> <!-- Creates a link for each entry ID  -->
+            </li>
             {% endfor %}
         </div>
         <hr>
