@@ -53,7 +53,7 @@ class User(db.Model):
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)  # Creates ID for each entry
-    body = db.Column(db.String(1000))  # adds date
+    body = db.Column(db.String(9000))  # adds date
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     post_id = db.Column(db.Integer,db.ForeignKey('entry.id'))
@@ -151,7 +151,6 @@ def login():
         if users and users.password == password:
             session['email'] = users.email
             flash("Logged in")
-            print("*" * 50)
             return redirect(url_for(".index"))
 
         else:
