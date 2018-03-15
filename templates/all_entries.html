@@ -10,7 +10,7 @@
                     <a href="/blog?id={{ entry.id }}">{{ entry.title }}</a>
                     
                 </h2>
-                <p>{{ entry.body }}</p>
+                <pre><p>{{ entry.body }}</p></pre>
                 <p> contributor: <a href="/blog?user={{ entry.owner.id }}">{{ entry.owner.email }}</a></p>
                 <p>{{ entry.created }}</p> <!-- Creates a link for each entry ID  -->
                 
