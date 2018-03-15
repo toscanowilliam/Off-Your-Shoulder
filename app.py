@@ -6,7 +6,7 @@ import os
 
 app = Flask(__name__)
 app.config.from_object("config.BaseConfig")
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://ixrcltwqldsymi:cfd9ffdfde2c0b07a794c6bf3abcf8c2c4f2fc7a496cf1d14bb86439a1a66590@ec2-184-73-250-50.compute-1.amazonaws.com:5432/dfnvammku29qit"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://djxcjdyhbpeair:e48674efafc51273382efc796e52b5f4b184e0209dfc46aba6014391b2d16db6@ec2-54-221-212-15.compute-1.amazonaws.com:5432/df09qaffi29qac"
 
 
 bcrypt = Bcrypt(app)
